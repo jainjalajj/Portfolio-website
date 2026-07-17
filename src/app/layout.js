@@ -15,12 +15,12 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  title: 'Your Name - Full Stack Developer',
+  title: 'Jalaj Jain - Software Developer',
   description: 'Professional portfolio showcasing modern web development skills, creative projects, and innovative solutions.',
   keywords: ['web developer', 'full stack', 'react', 'next.js', 'portfolio'],
-  authors: [{ name: 'Your Name' }],
-  creator: 'Your Name',
-  publisher: 'Your Name',
+  authors: [{ name: 'Jalaj Jain' }],
+  creator: 'Jalaj Jain',
+  publisher: 'Jalaj Jain',
   formatDetection: {
     email: false,
     address: false,
@@ -28,10 +28,10 @@ export const metadata = {
   },
   metadataBase: new URL('https://yourwebsite.com'),
   openGraph: {
-    title: 'Your Name - Full Stack Developer',
+    title: 'Jalaj Jain - Software Developer',
     description: 'Professional portfolio showcasing modern web development skills and projects.',
-    url: 'https://yourwebsite.com',
-    siteName: 'Your Portfolio',
+    url: 'https://jalajjain.com',
+    siteName: 'Jalaj Jain Portfolio',
     images: [
       {
         url: '/images/og-image.jpg',
@@ -45,10 +45,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Your Name - Full Stack Developer',
+    title: 'Jalaj Jain - Software Developer',
     description: 'Professional portfolio showcasing modern web development skills and projects.',
     images: ['/images/twitter-image.jpg'],
-    creator: '@yourusername',
+    creator: '@jalajjain_31',
   },
   robots: {
     index: true,

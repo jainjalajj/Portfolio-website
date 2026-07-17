@@ -53,12 +53,7 @@ export default function Hero() {
   }
 
   const handleDownloadResume = () => {
-    const link = document.createElement('a')
-    link.href = PERSONAL_INFO.resume
-    link.download = `${PERSONAL_INFO.name}_Resume.pdf`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    window.open(PERSONAL_INFO.resume, '_blank')
   }
 
   return (

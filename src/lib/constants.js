@@ -21,8 +21,8 @@ export const SOCIAL_LINKS = {
   instagram: "https://instagram.com/jalajjain_",
   dribbble: "https://dribbble.com/jainjalajj",
   behance: "https://behance.net/jainjalajj",
-  medium: "https://medium.com/@yourusername",
-  dev: "https://dev.to/yourusername"
+  medium: "",
+  dev: ""
 }
 
 // Navigation Menu Items
@@ -79,7 +79,7 @@ export const PROJECTS_DATA = [
     description: "A real-time violence detection system leveraging MobileNetV2 to analyze video feeds and detect violent activities, providing timely and reliable alerts.",
     image: "/images/violence-alert.jpg",
     technologies: ["Python", "MobileNetV2", "Jupyter Notebook", "Google Colab"],
-    liveUrl: "https://your-violence-alert-link.com",
+    liveUrl: "",
     githubUrl: "https://github.com/jainjalajj/Violence_Alert_System",
     featured: true,
     category: "AI/ML",
@@ -92,7 +92,7 @@ export const PROJECTS_DATA = [
     description: "A full-stack real-time chat application with secure authentication, instant communication via WebSockets, and a responsive UI.",
     image: "/images/mern-chat.jpg",
     technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Socket.IO", "JWT", "bcrypt", "Material UI"],
-    liveUrl: "https://your-mern-chat-link.com",
+    liveUrl: "",
     githubUrl: "https://github.com/jainjalajj/mern-chat-app",
     featured: false,
     category: "Full Stack",
