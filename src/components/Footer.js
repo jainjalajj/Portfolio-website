@@ -46,7 +46,6 @@ export default function Footer() {
                   className="text-2xl font-bold font-display hover:text-primary-400 transition-colors duration-300"
                 >
                   {PERSONAL_INFO.firstName}
-                  <span className="text-primary-400">.</span>
                 </a>
               </div>
               

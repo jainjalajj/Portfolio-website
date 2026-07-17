@@ -84,7 +84,6 @@ export default function Header() {
               className="text-xl lg:text-2xl font-bold font-display text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
             >
               {PERSONAL_INFO.firstName}
-              <span className="text-primary-600 dark:text-primary-400">.</span>
             </a>
           </div>
 
