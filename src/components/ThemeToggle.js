@@ -16,9 +16,9 @@ export default function ThemeToggle() {
     const clickedBefore = localStorage.getItem('themeClicked') === 'true'
     setHasClicked(clickedBefore)
 
-    // Get initial theme from localStorage
+    // Get initial theme from localStorage, default to dark
     const savedTheme = localStorage.getItem('theme')
-    const shouldBeDark = savedTheme === 'dark'
+    const shouldBeDark = savedTheme ? savedTheme === 'dark' : true
     setIsDark(shouldBeDark)
     
     // Apply theme to document
