@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Code, Database, Cloud, Wrench, Brain, Users } from 'lucide-react'
 import { SKILLS_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { motion, useInView, animate } from 'framer-motion'
+import { motion, animate, useMotionValue, useTransform, useInView } from 'framer-motion'
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState('technical')
@@ -51,30 +51,28 @@ export default function Skills() {
   }
 
   const SkillBar = ({ skill, index }) => {
-    const [progress, setProgress] = useState(0)
-    const controlsRef = useRef(null)
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: false, amount: 0.2 })
+    
+    const count = useMotionValue(0)
+    const rounded = useTransform(count, Math.round)
 
-    const handleViewportEnter = () => {
-      controlsRef.current = animate(0, skill.level, {
-        duration: 1,
-        delay: index * 0.1,
-        onUpdate(value) {
-          setProgress(Math.round(value))
-        }
-      })
-    }
-
-    const handleViewportLeave = () => {
-      if (controlsRef.current) {
-        controlsRef.current.stop()
+    useEffect(() => {
+      if (isInView) {
+        const controls = animate(count, skill.level, { 
+          duration: 1, 
+          delay: index * 0.1,
+          ease: "easeOut"
+        })
+        return controls.stop
+      } else {
+        count.set(0)
       }
-      setProgress(0)
-    }
+    }, [isInView, skill.level, index, count])
 
     return (
       <motion.div
-        onViewportEnter={handleViewportEnter}
-        onViewportLeave={handleViewportLeave}
+        ref={ref}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
@@ -92,7 +90,7 @@ export default function Skills() {
             </div>
           </div>
           <span className="percentage-number text-sm font-bold text-primary-600 dark:text-primary-400">
-            {progress}%
+            <motion.span>{rounded}</motion.span>%
           </span>
         </div>
         
