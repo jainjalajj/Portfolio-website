@@ -51,28 +51,30 @@ export default function Skills() {
   }
 
   const SkillBar = ({ skill, index }) => {
-    const ref = useRef(null)
-    const isInView = useInView(ref, { once: false, amount: 0.2 })
     const [progress, setProgress] = useState(0)
+    const controlsRef = useRef(null)
 
-    useEffect(() => {
-      if (isInView) {
-        const controls = animate(0, skill.level, {
-          duration: 1,
-          delay: index * 0.1,
-          onUpdate(value) {
-            setProgress(Math.round(value))
-          }
-        })
-        return () => controls.stop()
-      } else {
-        setProgress(0)
+    const handleViewportEnter = () => {
+      controlsRef.current = animate(0, skill.level, {
+        duration: 1,
+        delay: index * 0.1,
+        onUpdate(value) {
+          setProgress(Math.round(value))
+        }
+      })
+    }
+
+    const handleViewportLeave = () => {
+      if (controlsRef.current) {
+        controlsRef.current.stop()
       }
-    }, [isInView, skill.level, index])
+      setProgress(0)
+    }
 
     return (
       <motion.div
-        ref={ref}
+        onViewportEnter={handleViewportEnter}
+        onViewportLeave={handleViewportLeave}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}

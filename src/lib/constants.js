@@ -128,9 +128,7 @@ export const EXPERIENCE_DATA = [
     duration: "Nov 2025 – March 2026",
     location: "Pune, India",
     description: [
-      "Contributed to Project INDUS 2.0, Tech Mahindra's flagship 8-billion parameter foundational LLM, by architecting a sophisticated Synthetic Data Generation (SDG) pipeline using NVIDIA Data Designer.",
-      "Engineered dependency-aware synthetic datasets by blending statistical samplers for structured data with prompt-templated, context-aware LLM generations, ensuring high contextual fidelity for enterprise analytics.",
-      "Conducted rigorous data validation and quality assurance using advanced SQL and sampling techniques, seamlessly aligning the statistical distribution of synthetic data with real-world Indic language datasets."
+      "Architected a sophisticated, dependency-aware Synthetic Data Generation (SDG) pipeline using NVIDIA Data Designer for Project INDUS 2.0 (an 8-billion parameter foundational LLM), seamlessly blending statistical samplers and LLM-generated text with rigorous SQL validation to ensure flawless contextual and statistical fidelity across enterprise Indic language datasets."
     ]
   }
 ]
