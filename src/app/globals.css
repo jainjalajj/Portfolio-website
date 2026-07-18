@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -75,12 +75,12 @@ body.loaded * {
 
 /* Selection styles */
 ::selection {
-  background-color: rgba(56, 189, 248, 0.3);
+  background-color: rgba(139, 92, 246, 0.3);
   color: inherit;
 }
 
 ::-moz-selection {
-  background-color: rgba(56, 189, 248, 0.3);
+  background-color: rgba(139, 92, 246, 0.3);
   color: inherit;
 }
 
@@ -104,7 +104,7 @@ body.loaded * {
 /* Custom animations */
 .animate-typing {
   overflow: hidden;
-  border-right: 3px solid #38bdf8;
+  border-right: 3px solid #8b5cf6;
   white-space: nowrap;
   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
@@ -145,7 +145,7 @@ body.loaded * {
     border-color: transparent;
   }
   50% {
-    border-color: #38bdf8;
+    border-color: #8b5cf6;
   }
 }
 
@@ -161,7 +161,7 @@ body.loaded * {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
 /* Glass morphism effect */
@@ -179,12 +179,21 @@ body.loaded * {
   border: 1px solid rgba(209, 213, 219, 0.3);
 }
 
+/* iOS 18 Glass Panel */
+.glass-panel {
+  @apply backdrop-blur-2xl bg-white/5 dark:bg-slate-900/40 border border-white/20 dark:border-white/10 shadow-sm transition-all duration-300;
+}
+
+.glass-panel:hover {
+  @apply bg-white/10 dark:bg-slate-900/60 border-white/30 dark:border-white/20 shadow-md;
+}
+
 /* Loading spinner */
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(56, 189, 248, 0.1);
-  border-left: 4px solid #38bdf8;
+  border: 4px solid rgba(139, 92, 246, 0.1);
+  border-left: 4px solid #8b5cf6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -252,7 +261,7 @@ body.loaded * {
 
 /* Dark mode specific styles */
 .dark .card-hover:hover {
-  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
 }
 
 /* Focus styles for accessibility */

@@ -67,6 +67,7 @@ export const metadata = {
 }
 
 import { ThemeProvider } from '@/components/ThemeProvider'
+import CustomCursor from '@/components/CustomCursor'
 
 export default function RootLayout({ children }) {
   return (
@@ -83,6 +84,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}>
         <ThemeProvider defaultTheme="dark" storageKey="theme">
           <div id="root" className="relative">
+            <CustomCursor />
             {children}
           </div>
         </ThemeProvider>

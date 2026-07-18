@@ -4,31 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 import { Code, Database, Cloud, Wrench, Brain, Users } from 'lucide-react'
 import { SKILLS_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { motion, useInView, animate } from 'framer-motion'
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState('technical')
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
-
-  // Intersection Observer for animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
-      },
-      { threshold: 0.2 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   const categories = [
     {
@@ -72,27 +51,33 @@ export default function Skills() {
   }
 
   const SkillBar = ({ skill, index }) => {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: false, amount: 0.2 })
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
-      if (isVisible) {
-        const timer = setTimeout(() => {
-          setProgress(skill.level)
-        }, index * 100 + 200)
-        return () => clearTimeout(timer)
+      if (isInView) {
+        const controls = animate(0, skill.level, {
+          duration: 1,
+          delay: index * 0.1,
+          onUpdate(value) {
+            setProgress(Math.round(value))
+          }
+        })
+        return () => controls.stop()
       } else {
         setProgress(0)
       }
-    }, [isVisible, skill.level, index])
+    }, [isInView, skill.level, index])
 
     return (
-      <div
-        className={cn(
-          'group skill-progress bg-white dark:bg-slate-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200 dark:border-slate-700',
-          isVisible && 'fade-in'
-        )}
-        style={{ animationDelay: `${index * 100}ms` }}
-        data-percentage={skill.level}
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="group skill-progress glass-panel rounded-lg p-4 transition-all duration-300"
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
@@ -110,31 +95,34 @@ export default function Skills() {
         </div>
         
         <div className="relative h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-          <div
-            className="progress-fill absolute left-0 top-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-1000 ease-out"
-            style={{ width: `${progress}%` }}
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.level}%` }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 1, ease: "easeOut", delay: index * 0.1 }}
+            className="progress-fill absolute left-0 top-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -translate-x-full animate-shimmer" />
         </div>
-      </div>
+      </motion.div>
     )
   }
 
   const ToolGrid = ({ tools }) => (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {tools.map((tool, index) => (
-        <div
+        <motion.div
           key={index}
-          className={cn(
-            'group bg-white dark:bg-slate-800 rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-slate-200 dark:border-slate-700 text-center',
-            isVisible && 'fade-in'
-          )}
-          style={{ animationDelay: `${index * 50}ms` }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.3, delay: index * 0.05 }}
+          className="group glass-panel rounded-lg p-4 transition-all duration-300 transform hover:-translate-y-1 text-center"
         >
           <div className="text-slate-800 dark:text-slate-200 font-medium group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
             {tool}
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
@@ -142,13 +130,13 @@ export default function Skills() {
   const SoftSkillsList = ({ skills }) => (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {skills.map((skill, index) => (
-        <div
+        <motion.div
           key={index}
-          className={cn(
-            'group bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-slate-200 dark:border-slate-700',
-            isVisible && 'fade-in'
-          )}
-          style={{ animationDelay: `${index * 100}ms` }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.4, delay: index * 0.1 }}
+          className="group glass-panel rounded-lg p-6 transition-all duration-300 transform hover:-translate-y-1"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 bg-gradient-to-br from-primary-500 to-purple-600 rounded-lg">
@@ -158,20 +146,26 @@ export default function Skills() {
               {skill}
             </h4>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
 
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-white to-purple-50 dark:bg-none dark:bg-slate-900/50 relative overflow-hidden">
+    <section id="skills" className="py-24 relative overflow-hidden bg-transparent">
       {/* Background Elements */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-purple-500/5 rounded-full blur-2xl" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className={cn('text-center mb-16 space-y-4', isVisible && 'fade-in')}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 space-y-4"
+        >
           <h2 className="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wide">
             Skills & Expertise
           </h2>
@@ -183,10 +177,16 @@ export default function Skills() {
             A comprehensive overview of my technical skills, tools, and soft skills that I use to create 
             exceptional digital experiences and solve complex problems.
           </p>
-        </div>
+        </motion.div>
 
         {/* Category Tabs */}
-        <div className={cn('flex flex-wrap justify-center gap-4 mb-12', isVisible && 'fade-in')} style={{animationDelay: '200ms'}}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
           {categories.map((category) => (
             <button
               key={category.id}
@@ -202,7 +202,7 @@ export default function Skills() {
               {category.name}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Skills Content */}
         <div className="max-w-6xl mx-auto">
@@ -215,7 +215,13 @@ export default function Skills() {
               </div>
               
               {/* Technical Skills Summary */}
-              <div className={cn('bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mt-8', isVisible && 'fade-in')} style={{animationDelay: '600ms'}}>
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="glass-panel rounded-xl p-6 mt-8"
+              >
                 <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 text-center">
                   Skill Categories
                 </h4>
@@ -227,7 +233,7 @@ export default function Skills() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           )}
 
@@ -241,7 +247,13 @@ export default function Skills() {
         </div>
 
         {/* Bottom CTA */}
-        <div className={cn('text-center mt-16', isVisible && 'fade-in')} style={{animationDelay: '800ms'}}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center mt-16"
+        >
           <div className="bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl p-8 text-white max-w-2xl mx-auto">
             <h4 className="text-xl font-bold mb-4">Ready to collaborate?</h4>
             <p className="mb-6 opacity-90">
@@ -255,7 +267,7 @@ export default function Skills() {
               Start a Conversation
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

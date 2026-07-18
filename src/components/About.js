@@ -1,104 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { Award, Users, Coffee, Star, Download, ExternalLink } from 'lucide-react'
+import { Award, Star, Download, ExternalLink } from 'lucide-react'
 import { PERSONAL_INFO, ABOUT_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
-  const [animatedStats, setAnimatedStats] = useState({
-    experience: 0,
-    projects: 0,
-    clients: 0
-  })
-
-  // Intersection Observer for animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-            startCounterAnimations()
-          }
-        })
-      },
-      { threshold: 0.3 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  // Counter animations
-  const startCounterAnimations = () => {
-    const duration = 2000
-    const experienceTarget = parseInt(ABOUT_DATA.experience) || 5
-    const projectsTarget = parseInt(ABOUT_DATA.projectsCompleted) || 50
-    const clientsTarget = parseInt(ABOUT_DATA.happyClients) || 30
-
-    const animate = (start, end, setter, suffix = '') => {
-      const startTime = performance.now()
-      
-      const updateCounter = (currentTime) => {
-        const elapsed = currentTime - startTime
-        const progress = Math.min(elapsed / duration, 1)
-        const easeOut = 1 - Math.pow(1 - progress, 3)
-        const current = Math.floor(start + (end - start) * easeOut)
-        
-        setter(current)
-        
-        if (progress < 1) {
-          requestAnimationFrame(updateCounter)
-        }
-      }
-      
-      requestAnimationFrame(updateCounter)
-    }
-
-    animate(0, experienceTarget, (val) => setAnimatedStats(prev => ({ ...prev, experience: val })))
-    animate(0, projectsTarget, (val) => setAnimatedStats(prev => ({ ...prev, projects: val })))
-    animate(0, clientsTarget, (val) => setAnimatedStats(prev => ({ ...prev, clients: val })))
-  }
-
-  const stats = [
-    {
-      icon: Award,
-      label: 'Years Experience',
-      value: animatedStats.experience,
-      suffix: '+',
-      color: 'text-blue-600 dark:text-blue-400'
-    },
-    {
-      icon: Coffee,
-      label: 'Projects Completed',
-      value: animatedStats.projects,
-      suffix: '+',
-      color: 'text-green-600 dark:text-green-400'
-    },
-    {
-      icon: Users,
-      label: 'Happy Clients',
-      value: animatedStats.clients,
-      suffix: '+',
-      color: 'text-purple-600 dark:text-purple-400'
-    },
-    {
-      icon: Star,
-      label: 'Certifications',
-      value: ABOUT_DATA.certifications?.length || 3,
-      suffix: '',
-      color: 'text-orange-600 dark:text-orange-400'
-    }
-  ]
-
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-blue-100 to-white dark:bg-none dark:bg-slate-900 relative overflow-hidden">
+    <section id="about" className="py-24 relative overflow-hidden bg-transparent">
       {/* Background Elements */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-10 left-10 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl" />
@@ -106,7 +15,13 @@ export default function About() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Content Section */}
-          <div className={cn('space-y-8', isVisible && 'fade-in')}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
             {/* Section Header */}
             <div className="space-y-4">
               <h2 className="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wide">
@@ -180,12 +95,7 @@ export default function About() {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button
                 onClick={() => {
-                  const link = document.createElement('a')
-                  link.href = PERSONAL_INFO.resume
-                  link.download = `${PERSONAL_INFO.name}_Resume.pdf`
-                  document.body.appendChild(link)
-                  link.click()
-                  document.body.removeChild(link)
+                  window.open(PERSONAL_INFO.resume, '_blank')
                 }}
                 className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-500/50"
               >
@@ -201,12 +111,18 @@ export default function About() {
                 View Projects
               </button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Stats Section */}
-          <div className={cn('space-y-8', isVisible && 'fade-in')} style={{animationDelay: '200ms'}}>
+          {/* Right Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-8"
+          >
             {/* Profile Image */}
-            <div className="relative">
+            <div className="relative max-w-md mx-auto">
               <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 p-1">
                 <div className="w-full h-full rounded-xl overflow-hidden bg-white dark:bg-slate-800">
                   <img
@@ -225,36 +141,8 @@ export default function About() {
               <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-green-400 rounded-full animate-pulse delay-700" />
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
-                >
-                  <div className="flex flex-col items-center text-center space-y-3">
-                    <div className={cn("p-3 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:scale-110 transition-transform duration-300", stat.color)}>
-                      <stat.icon size={24} />
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <div className={cn("text-2xl font-bold", stat.color)}>
-                        {stat.value}{stat.suffix}
-                      </div>
-                      <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
-                        {stat.label}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              ))}
-            </div>
-
             {/* Skills Preview */}
-            <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-xl p-6 space-y-4">
+            <div className="glass-panel rounded-xl p-6 space-y-4 max-w-md mx-auto">
               <h4 className="text-lg font-semibold text-slate-900 dark:text-white text-center">
                 Core Technologies
               </h4>
@@ -263,7 +151,7 @@ export default function About() {
                 {['React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'PostgreSQL'].map((tech, index) => (
                   <span
                     key={index}
-                    className="px-3 py-2 bg-white dark:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 transform"
+                    className="px-3 py-2 glass-panel text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:scale-105 transform"
                   >
                     {tech}
                   </span>
@@ -279,11 +167,17 @@ export default function About() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Section - Quote or Philosophy */}
-        <div className={cn('mt-20 text-center max-w-3xl mx-auto', isVisible && 'fade-in')} style={{animationDelay: '400ms'}}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-20 text-center max-w-3xl mx-auto"
+        >
           <blockquote className="text-xl lg:text-2xl font-medium text-slate-700 dark:text-slate-300 italic leading-relaxed">
             "Code is like humor. When you have to explain it, it's bad. I strive to write clean, 
             intuitive code that speaks for itself and creates meaningful user experiences."
@@ -291,7 +185,7 @@ export default function About() {
           <cite className="block mt-4 text-primary-600 dark:text-primary-400 font-semibold">
             — {PERSONAL_INFO.name}
           </cite>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

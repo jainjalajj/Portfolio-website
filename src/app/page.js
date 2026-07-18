@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
+import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
 import Projects from '@/components/Projects'
 import Contact from '@/components/Contact'
@@ -73,25 +74,12 @@ export default function HomePage() {
       <main className="relative">
         <Header />
 
-        <section id="home">
-          <Hero />
-        </section>
-
-        <section id="about" className="py-20">
-          <About />
-        </section>
-
-        <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-900/50">
-          <Skills />
-        </section>
-
-        <section id="projects" className="py-20">
-          <Projects />
-        </section>
-
-        <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-900/50">
-          <Contact />
-        </section>
+        <Hero />
+        <About />
+        <Experience />
+        <Skills />
+        <Projects />
+        <Contact />
 
         <Footer />
         <ScrollToTop />

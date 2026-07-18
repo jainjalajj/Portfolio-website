@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ChevronDown, Download, Mail, Github, Linkedin, Twitter } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
@@ -57,7 +58,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 lg:pt-32 overflow-hidden bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 lg:pt-32 overflow-hidden bg-transparent">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-hero-pattern opacity-5" />
       
@@ -91,30 +92,54 @@ export default function Hero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold font-display text-slate-900 dark:text-white mb-6 fade-in">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold font-display text-slate-900 dark:text-white mb-6"
+          >
             Hi, I'm{' '}
             <span className="text-primary-600 dark:text-primary-400 relative">
               {PERSONAL_INFO.firstName}
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-600 to-primary-400 transform scale-x-0 animate-scale-x origin-left" />
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Typing Animation */}
-          <div className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-700 dark:text-slate-300 mb-8 min-h-[2.5rem] lg:min-h-[3rem] fade-in" style={{animationDelay: '200ms'}}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-700 dark:text-slate-300 mb-8 min-h-[2.5rem] lg:min-h-[3rem]"
+          >
             <span className="inline-block">
               {displayText}
               <span className="inline-block w-0.5 h-8 lg:h-10 bg-primary-600 dark:bg-primary-400 ml-1 animate-pulse" />
             </span>
-          </div>
+          </motion.div>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed fade-in" style={{animationDelay: '400ms'}}>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+          >
             {PERSONAL_INFO.subtitle}. I create exceptional digital experiences 
             that combine beautiful design with powerful functionality.
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 fade-in" style={{animationDelay: '600ms'}}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+          >
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-primary-500/50"
@@ -126,20 +151,26 @@ export default function Hero() {
             
             <button
               onClick={handleDownloadResume}
-              className="group relative inline-flex items-center gap-2 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border-2 border-slate-300 dark:border-slate-600 hover:border-primary-500 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-500/50"
+              className="group relative inline-flex items-center gap-2 glass-panel hover:bg-white/10 text-slate-700 dark:text-slate-300 px-8 py-4 rounded-full font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-primary-500/50"
             >
               <Download size={20} />
               Download CV
             </button>
-          </div>
+          </motion.div>
 
           {/* Social Links */}
-          <div className="flex justify-center items-center gap-6 mb-16 fade-in" style={{animationDelay: '800ms'}}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex justify-center items-center gap-6 mb-16"
+          >
             <a
               href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-primary-100 dark:hover:bg-primary-900/20 text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
+              className="group p-3 rounded-full glass-panel text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400"
               aria-label="GitHub Profile"
             >
               <Github size={24} />
@@ -149,7 +180,7 @@ export default function Hero() {
               href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-primary-100 dark:hover:bg-primary-900/20 text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
+              className="group p-3 rounded-full glass-panel text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400"
               aria-label="LinkedIn Profile"
             >
               <Linkedin size={24} />
@@ -159,25 +190,28 @@ export default function Hero() {
               href={SOCIAL_LINKS.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-primary-100 dark:hover:bg-primary-900/20 text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
+              className="group p-3 rounded-full glass-panel text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400"
               aria-label="Twitter Profile"
             >
               <Twitter size={24} />
             </a>
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
-          <button
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
             onClick={scrollToAbout}
-            className="group animate-bounce hover:animate-none transition-all duration-300 fade-in"
-            style={{animationDelay: '1000ms'}}
+            className="group animate-bounce hover:animate-none transition-all duration-300"
             aria-label="Scroll to About section"
           >
             <div className="flex flex-col items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300">
               <span className="text-sm font-medium">Scroll Down</span>
               <ChevronDown size={24} className="group-hover:translate-y-1 transition-transform duration-300" />
             </div>
-          </button>
+          </motion.button>
         </div>
       </div>
 

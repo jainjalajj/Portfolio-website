@@ -4,7 +4,7 @@ export const PERSONAL_INFO = {
   firstName: "Jalaj",
   lastName: "Jain",
   title: "Software Developer",
-  subtitle: "Building Modern Digital Experiences",
+  subtitle: "Building AI-powered products, from LLM pipelines to full-stack apps.",
   location: "Pune, India",
   email: "jalajjain31@gmail.com",
   phone: "",
@@ -29,6 +29,7 @@ export const SOCIAL_LINKS = {
 export const NAVIGATION_ITEMS = [
   { name: "Home", href: "#home", icon: "Home" },
   { name: "About", href: "#about", icon: "User" },
+  { name: "Experience", href: "#experience", icon: "Briefcase" },
   { name: "Skills", href: "#skills", icon: "Code" },
   { name: "Projects", href: "#projects", icon: "Briefcase" },
   { name: "Contact", href: "#contact", icon: "Mail" }
@@ -49,8 +50,8 @@ export const SKILLS_DATA = {
     { name: "Docker", level: 75, icon: "🐳", category: "DevOps" }
   ],
   tools: [
-    "VS Code", "Git", "GitHub", "Figma", "Adobe XD", "Postman", 
-    "Webpack", "Vite", "ESLint", "Prettier", "Jest", "Cypress"
+    "VS Code", "Git", "GitHub", "Postman", 
+    "Webpack", "Vite", "ESLint", "Prettier"
   ],
   soft: [
     "Problem Solving", "Team Leadership", "Communication", 
@@ -64,7 +65,7 @@ export const PROJECTS_DATA = [
     id: 1,
     title: "ConnectSphere – Real-time Communication Platform",
     description: "A full-stack real-time communication platform enabling instant messaging, secure authentication, and role-based access control with WebSockets for real-time updates.",
-    image: "/images/connectsphere.jpg",
+    image: "/images/project1.png",
     technologies: ["React", "Material UI", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "Socket.IO", "JWT", "bcrypt"],
     liveUrl: "https://spherex-phi.vercel.app/",
     githubUrl: "https://github.com/jainjalajj/Connect-Sphere",
@@ -77,7 +78,7 @@ export const PROJECTS_DATA = [
     id: 2,
     title: "Violence Alert System",
     description: "A real-time violence detection system leveraging MobileNetV2 to analyze video feeds and detect violent activities, providing timely and reliable alerts.",
-    image: "/images/violence-alert.jpg",
+    image: "/images/project2.png",
     technologies: ["Python", "MobileNetV2", "Jupyter Notebook", "Google Colab"],
     liveUrl: "",
     githubUrl: "https://github.com/jainjalajj/Violence_Alert_System",
@@ -90,7 +91,7 @@ export const PROJECTS_DATA = [
     id: 3,
     title: "MERN Chat Application",
     description: "A full-stack real-time chat application with secure authentication, instant communication via WebSockets, and a responsive UI.",
-    image: "/images/mern-chat.jpg",
+    image: "/images/project3.png",
     technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Socket.IO", "JWT", "bcrypt", "Material UI"],
     liveUrl: "",
     githubUrl: "https://github.com/jainjalajj/mern-chat-app",
@@ -117,6 +118,22 @@ export const ABOUT_DATA = {
     gpa: "8.14 (A+ Grade)"
   }
 }
+
+// Experience Data
+export const EXPERIENCE_DATA = [
+  {
+    id: 1,
+    role: "AI/ML Intern",
+    company: "Tech Mahindra (Makers Lab)",
+    duration: "Nov 2025 – March 2026",
+    location: "Pune, India",
+    description: [
+      "Contributed to Project INDUS 2.0, Tech Mahindra's flagship 8-billion parameter foundational LLM, by architecting a sophisticated Synthetic Data Generation (SDG) pipeline using NVIDIA Data Designer.",
+      "Engineered dependency-aware synthetic datasets by blending statistical samplers for structured data with prompt-templated, context-aware LLM generations, ensuring high contextual fidelity for enterprise analytics.",
+      "Conducted rigorous data validation and quality assurance using advanced SQL and sampling techniques, seamlessly aligning the statistical distribution of synthetic data with real-world Indic language datasets."
+    ]
+  }
+]
 
 // Contact Form Configuration
 export const CONTACT_CONFIG = {

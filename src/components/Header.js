@@ -9,15 +9,28 @@ import ThemeToggle from './ThemeToggle'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [activeSection, setActiveSection] = useState('home')
 
   // Handle scroll effect
   useEffect(() => {
+    let lastScrollY = window.scrollY
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      const currentScrollY = window.scrollY
+      
+      setIsScrolled(currentScrollY > 50)
+      
+      // Hide on scroll down, show on scroll up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+      lastScrollY = currentScrollY
       
       // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'contact']
+      const sections = ['home', 'about', 'experience', 'skills', 'projects', 'contact']
       const currentSection = sections.find(section => {
         const element = document.getElementById(section)
         if (element) {
@@ -65,13 +78,12 @@ export default function Header() {
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-b border-slate-200/50 dark:border-slate-700/50 shadow-lg'
-          : 'bg-transparent'
+        'fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-6xl rounded-full glass-panel',
+        isScrolled ? 'py-1' : 'py-3',
+        isVisible ? 'top-6 opacity-100' : '-top-32 opacity-0'
       )}
     >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -83,7 +95,12 @@ export default function Header() {
               }}
               className="text-xl lg:text-2xl font-bold font-display text-slate-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
             >
-              {PERSONAL_INFO.firstName}
+              <div className="flex items-center gap-3 group/logo">
+                <div className="w-8 h-8 rounded bg-primary-600 dark:bg-primary-500 flex items-center justify-center text-white font-bold text-sm tracking-widest shadow-lg group-hover/logo:scale-110 transition-transform duration-300">
+                  JJ
+                </div>
+                <span className="tracking-tight">{PERSONAL_INFO.name}</span>
+              </div>
             </a>
           </div>
 
