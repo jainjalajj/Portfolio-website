@@ -183,7 +183,7 @@ export default function About() {
             intuitive code that speaks for itself and creates meaningful user experiences."
           </blockquote>
           <cite className="block mt-4 text-primary-600 dark:text-primary-400 font-semibold">
-            — {PERSONAL_INFO.name}
+            — Jalaj (Claude humor)
           </cite>
         </motion.div>
       </div>
