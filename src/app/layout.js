@@ -66,12 +66,11 @@ export const metadata = {
   },
 }
 
-import { ThemeProvider } from '@/components/ThemeProvider'
 import CustomCursor from '@/components/CustomCursor'
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -79,7 +78,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0f172a" />
-        <meta name="color-scheme" content="dark light" />
+        <meta name="color-scheme" content="dark" />
       </head>
       <body className={`${inter.className} antialiased min-h-screen bg-transparent text-foreground relative`}>
         <div className="liquid-bg-container">
@@ -88,13 +87,12 @@ export default function RootLayout({ children }) {
           <div className="liquid-orb bg-cyan-500/30 w-[25vw] h-[25vw] top-[40%] right-[-5%] animate-float-2"></div>
           <div className="liquid-orb bg-violet-500/30 w-[30vw] h-[30vw] bottom-[-20%] left-[20%] animate-float-3"></div>
         </div>
-        <ThemeProvider defaultTheme="dark" storageKey="theme">
-          <div id="root" className="relative z-10">
-            <CustomCursor />
-            {children}
-          </div>
-        </ThemeProvider>
+        <div id="root" className="relative z-10">
+          <CustomCursor />
+          {children}
+        </div>
       </body>
     </html>
   )
 }
+

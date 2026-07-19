@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { Menu, X, Home, User, Code, Briefcase, Mail } from 'lucide-react'
 import { NAVIGATION_ITEMS, PERSONAL_INFO } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -141,10 +140,8 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Theme Toggle and Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            
             {/* Mobile menu button */}
             <div className="lg:hidden">
               <button
