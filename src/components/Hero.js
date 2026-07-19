@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { ChevronDown, Download, Mail, Github, Linkedin, Twitter } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
@@ -77,13 +78,13 @@ export default function Hero() {
           {/* Profile Image */}
           <div className="mb-8 relative inline-block">
             <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white dark:border-slate-700 shadow-2xl mx-auto relative z-10 hover-glow">
-              <img
+              <Image
                 src={PERSONAL_INFO.profileImage}
                 alt={PERSONAL_INFO.name}
+                width={192}
+                height={192}
+                priority
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                onError={(e) => {
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjFGNUY5Ii8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjgwIiByPSIzMCIgZmlsbD0iIzk0QTNCOCIvPgo8cGF0aCBkPSJNNDAgMTYwQzQwIDEzNS44IDYwLjIgMTE2IDg1IDExNkgxMTVDMTM5LjggMTE2IDE2MCAxMzUuOCAxNjAgMTYwVjIwMEg0MFYxNjBaIiBmaWxsPSIjOTRBM0I4Ii8+Cjwvc3ZnPgo='
-                }}
               />
             </div>
             {/* Floating animation rings */}
@@ -95,7 +96,7 @@ export default function Hero() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
             className="text-4xl sm:text-5xl lg:text-7xl font-bold font-display text-slate-900 dark:text-white mb-6"
           >
@@ -110,7 +111,7 @@ export default function Hero() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-700 dark:text-slate-300 mb-8 min-h-[2.5rem] lg:min-h-[3rem]"
           >
@@ -124,7 +125,7 @@ export default function Hero() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
@@ -136,7 +137,7 @@ export default function Hero() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
@@ -162,7 +163,7 @@ export default function Hero() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex justify-center items-center gap-6 mb-16"
           >
@@ -201,7 +202,7 @@ export default function Hero() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             onClick={scrollToAbout}
             className="group animate-bounce hover:animate-none transition-all duration-300"

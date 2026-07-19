@@ -84,6 +84,9 @@ module.exports = {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-slow': 'pulse 3s infinite',
         'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+        'float-1': 'float-1 20s ease-in-out infinite',
+        'float-2': 'float-2 25s ease-in-out infinite',
+        'float-3': 'float-3 22s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -101,6 +104,21 @@ module.exports = {
         'blink-caret': {
           '0%, 50%': { 'border-color': 'transparent' },
           '51%, 100%': { 'border-color': '#38bdf8' },
+        },
+        'float-1': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1) rotate(0deg)' },
+          '33%': { transform: 'translate(10%, -10%) scale(1.1) rotate(10deg)' },
+          '66%': { transform: 'translate(-5%, 15%) scale(0.9) rotate(-5deg)' },
+        },
+        'float-2': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1) rotate(0deg)' },
+          '33%': { transform: 'translate(-15%, 10%) scale(0.9) rotate(-10deg)' },
+          '66%': { transform: 'translate(10%, -5%) scale(1.1) rotate(5deg)' },
+        },
+        'float-3': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1) rotate(0deg)' },
+          '33%': { transform: 'translate(5%, 15%) scale(1.2) rotate(5deg)' },
+          '66%': { transform: 'translate(-10%, -10%) scale(0.8) rotate(-10deg)' },
         },
       },
       backgroundImage: {

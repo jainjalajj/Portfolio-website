@@ -1,33 +1,48 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const progressRef = useRef(null)
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      const scrolled = document.documentElement.scrollTop
-      const maxHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
-      const progress = (scrolled / maxHeight) * 100
+    let ticking = false
 
-      setScrollProgress(progress)
-      setIsVisible(scrolled > 300)
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = document.documentElement.scrollTop
+          const maxHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
+          const progress = (scrolled / maxHeight) * 100
+
+          // Update SVG directly via ref — no React re-render
+          if (progressRef.current) {
+            progressRef.current.setAttribute('stroke-dasharray', `${progress}, 100`)
+          }
+
+          // Only trigger re-render when visibility threshold crosses
+          const shouldBeVisible = scrolled > 300
+          setIsVisible(prev => prev !== shouldBeVisible ? shouldBeVisible : prev)
+
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
-    window.addEventListener('scroll', toggleVisibility)
-    return () => window.removeEventListener('scroll', toggleVisibility)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
-  }
+  }, [])
 
   if (!isVisible) return null
 
@@ -54,8 +69,9 @@ export default function ScrollToTop() {
           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
         />
         <path
-          className="text-white transition-all duration-300"
-          strokeDasharray={`${scrollProgress}, 100`}
+          ref={progressRef}
+          className="text-white"
+          strokeDasharray="0, 100"
           strokeWidth="2"
           stroke="currentColor"
           fill="none"
@@ -71,3 +87,4 @@ export default function ScrollToTop() {
     </button>
   )
 }
+

@@ -1,18 +1,26 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
+  const dotRef = useRef(null)
+  const ringRef = useRef(null)
 
   useEffect(() => {
     // Check if device supports hover (desktop)
     if (window.matchMedia('(pointer: coarse)').matches) return
 
     const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      // Direct DOM manipulation for zero lag
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${e.clientX - 6}px, ${e.clientY - 6}px, 0)`
+      }
+      if (ringRef.current) {
+        // Add a tiny delay to the ring for the "follower" effect, but keep it smooth
+        // If user wants absolute 0 lag for both, just set it instantly:
+        ringRef.current.style.transform = `translate3d(${e.clientX - 24}px, ${e.clientY - 24}px, 0)`
+      }
       
       // Check if hovering over clickable elements
       const target = e.target
@@ -20,8 +28,7 @@ export default function CustomCursor() {
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
         target.closest('a') ||
-        target.closest('button') ||
-        window.getComputedStyle(target).cursor === 'pointer'
+        target.closest('button')
 
       setIsHovering(isClickable)
     }
@@ -45,26 +52,27 @@ export default function CustomCursor() {
   return (
     <>
       {/* Outer Glow Ring */}
-      <motion.div
-        className="fixed top-0 left-0 w-12 h-12 rounded-full border border-primary-500/30 bg-primary-500/10 pointer-events-none z-[9999] backdrop-blur-[2px] shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center"
-        animate={{
-          x: mousePosition.x - 24,
-          y: mousePosition.y - 24,
-          scale: isHovering ? 1.5 : 1,
+      <div
+        ref={ringRef}
+        className={`fixed top-0 left-0 w-12 h-12 rounded-full border border-primary-500/30 pointer-events-none z-[9999] backdrop-blur-[2px] flex items-center justify-center transition-all duration-300 ease-out will-change-transform`}
+        style={{
+          boxShadow: '0 0 20px rgba(139,92,246,0.3)',
+          transform: 'translate3d(-100px, -100px, 0)',
           backgroundColor: isHovering ? 'rgba(139, 92, 246, 0.2)' : 'rgba(139, 92, 246, 0.1)',
+          scale: isHovering ? 1.5 : 1,
         }}
-        transition={{ type: "spring", mass: 0.1, stiffness: 150, damping: 15 }}
       />
       {/* Inner Dot */}
-      <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-primary-500 rounded-full pointer-events-none z-[10000] shadow-[0_0_10px_rgba(139,92,246,0.8)]"
-        animate={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 w-3 h-3 bg-primary-500 rounded-full pointer-events-none z-[10000] will-change-transform"
+        style={{
+          boxShadow: '0 0 10px rgba(139,92,246,0.8)',
+          transform: 'translate3d(-100px, -100px, 0)',
+          transition: 'opacity 0.2s, scale 0.2s',
           scale: isHovering ? 0 : 1,
-          opacity: isHovering ? 0 : 1
+          opacity: isHovering ? 0 : 1,
         }}
-        transition={{ type: "spring", mass: 0.05, stiffness: 200, damping: 15 }}
       />
     </>
   )

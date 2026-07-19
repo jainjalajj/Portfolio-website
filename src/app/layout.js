@@ -81,9 +81,15 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#0f172a" />
         <meta name="color-scheme" content="dark light" />
       </head>
-      <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}>
+      <body className={`${inter.className} antialiased min-h-screen bg-transparent text-foreground relative`}>
+        <div className="liquid-bg-container">
+          {/* Animated Liquid Orbs */}
+          <div className="liquid-orb bg-fuchsia-500/30 w-[30vw] h-[30vw] top-[-10%] left-[-10%] animate-float-1"></div>
+          <div className="liquid-orb bg-cyan-500/30 w-[25vw] h-[25vw] top-[40%] right-[-5%] animate-float-2"></div>
+          <div className="liquid-orb bg-violet-500/30 w-[30vw] h-[30vw] bottom-[-20%] left-[20%] animate-float-3"></div>
+        </div>
         <ThemeProvider defaultTheme="dark" storageKey="theme">
-          <div id="root" className="relative">
+          <div id="root" className="relative z-10">
             <CustomCursor />
             {children}
           </div>

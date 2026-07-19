@@ -52,30 +52,35 @@ export default function Skills() {
 
   const SkillBar = ({ skill, index }) => {
     const ref = useRef(null)
-    const isInView = useInView(ref, { once: false, amount: 0.2 })
-    
-    const count = useMotionValue(0)
-    const rounded = useTransform(count, Math.round)
+    const countRef = useRef(null)
+    const isInView = useInView(ref, { once: true, amount: 0.2 })
 
     useEffect(() => {
       if (isInView) {
-        const controls = animate(count, skill.level, { 
+        const controls = animate(0, skill.level, { 
           duration: 1, 
           delay: index * 0.1,
-          ease: "easeOut"
+          ease: "easeOut",
+          onUpdate: (value) => {
+            if (countRef.current) {
+              countRef.current.textContent = Math.round(value)
+            }
+          }
         })
         return controls.stop
       } else {
-        count.set(0)
+        if (countRef.current) {
+          countRef.current.textContent = '0'
+        }
       }
-    }, [isInView, skill.level, index, count])
+    }, [isInView, skill.level, index])
 
     return (
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
         className="group skill-progress glass-panel rounded-lg p-4 transition-all duration-300"
       >
@@ -90,7 +95,7 @@ export default function Skills() {
             </div>
           </div>
           <span className="percentage-number text-sm font-bold text-primary-600 dark:text-primary-400">
-            <motion.span>{rounded}</motion.span>%
+            <span ref={countRef}>0</span>%
           </span>
         </div>
         
@@ -98,7 +103,7 @@ export default function Skills() {
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: `${skill.level}%` }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut", delay: index * 0.1 }}
             className="progress-fill absolute left-0 top-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
           />
@@ -115,7 +120,7 @@ export default function Skills() {
           key={index}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.3, delay: index * 0.05 }}
           className="group glass-panel rounded-lg p-4 transition-all duration-300 transform hover:-translate-y-1 text-center"
         >
@@ -134,7 +139,7 @@ export default function Skills() {
           key={index}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
           className="group glass-panel rounded-lg p-6 transition-all duration-300 transform hover:-translate-y-1"
         >
@@ -162,7 +167,7 @@ export default function Skills() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16 space-y-4"
         >
@@ -183,7 +188,7 @@ export default function Skills() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
@@ -218,7 +223,7 @@ export default function Skills() {
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="glass-panel rounded-xl p-6 mt-8"
               >
@@ -250,7 +255,7 @@ export default function Skills() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-center mt-16"
         >

@@ -4,6 +4,7 @@ import { Award, Star, Download, ExternalLink } from 'lucide-react'
 import { PERSONAL_INFO, ABOUT_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -18,7 +19,7 @@ export default function About() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
             className="space-y-8"
           >
@@ -117,7 +118,7 @@ export default function About() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-8"
           >
@@ -125,13 +126,12 @@ export default function About() {
             <div className="relative max-w-md mx-auto">
               <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary-500 to-purple-600 p-1">
                 <div className="w-full h-full rounded-xl overflow-hidden bg-white dark:bg-slate-800">
-                  <img
+                  <Image
                     src={PERSONAL_INFO.profileImage}
                     alt={`${PERSONAL_INFO.name} working`}
+                    width={400}
+                    height={400}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRjFGNUY5Ii8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE2MCIgcj0iNjAiIGZpbGw9IiM5NEEzQjgiLz4KPHBhdGggZD0iTTgwIDMyMEM4MCAyNzEuNiAxMjAuNCAyMzIgMTcwIDIzMkgyMzBDMjc5LjYgMjMyIDMyMCAyNzEuNiAzMjAgMzIwVjQwMEg4MFYzMjBaIiBmaWxsPSIjOTRBM0I4Ii8+Cjwvc3ZnPgo='
-                    }}
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-20 text-center max-w-3xl mx-auto"
         >
