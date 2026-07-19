@@ -193,21 +193,7 @@ export default function Footer() {
             </div>
 
             {/* Additional Links */}
-            <div className="flex justify-center items-center gap-6 mt-6 pt-6 border-t border-slate-800 text-xs text-slate-500">
-              <button
-                onClick={() => window.open('/privacy-policy', '_blank')}
-                className="hover:text-slate-400 transition-colors duration-300"
-              >
-                Privacy Policy
-              </button>
-              <span>•</span>
-              <button
-                onClick={() => window.open('/terms-of-service', '_blank')}
-                className="hover:text-slate-400 transition-colors duration-300"
-              >
-                Terms of Service
-              </button>
-              <span>•</span>
+            <div className="flex justify-center items-center mt-6 pt-6 border-t border-slate-800 text-xs text-slate-500">
               <button
                 onClick={() => window.open(PERSONAL_INFO.resume, '_blank')}
                 className="hover:text-slate-400 transition-colors duration-300"
